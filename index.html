@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中心仓品类品牌规划</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Center Warehouse Planning</p>
+      <h1>中心仓品类品牌规划</h1>
+    </div>
+    <div class="header-actions">
+      <button id="resetFilters" class="ghost-btn" type="button" title="重置筛选">重置</button>
+      <button id="exportCsv" class="solid-btn" type="button" title="导出当前结果">导出 CSV</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="planning-note" aria-label="规划说明">
+      <div class="note-head">
+        <div>
+          <p class="eyebrow">Planning Notes</p>
+          <h2>中心仓品类品牌规划说明</h2>
+        </div>
+        <span id="sourceName" class="source-pill"></span>
+      </div>
+      <div id="planningRules" class="rule-grid"></div>
+    </section>
+
+    <section class="filter-band" aria-label="筛选">
+      <div class="filter-grid">
+        <label class="search-box">
+          <span>搜索</span>
+          <input id="keywordInput" type="search" placeholder="输入品类或品牌">
+        </label>
+        <div id="majorFilter" class="multi-filter"></div>
+        <div id="categoryFilter" class="multi-filter"></div>
+        <div id="brandFilter" class="multi-filter"></div>
+        <label class="metric-select">
+          <span>指标查看</span>
+          <select id="metricSelect"></select>
+        </label>
+        <div class="segmented" aria-label="状态筛选">
+          <button class="segment is-active" type="button" data-status="全部">全部</button>
+          <button class="segment" type="button" data-status="有备货">有备货</button>
+          <button class="segment" type="button" data-status="有退出">有退出</button>
+        </div>
+      </div>
+      <div id="chips" class="chips"></div>
+    </section>
+
+    <section class="summary-strip" aria-label="摘要">
+      <div class="metric metric-neutral"><label>品类品牌</label><span id="rowCount">0</span></div>
+      <div class="metric metric-good"><label>建议备货仓次</label><span id="stockCount">0</span></div>
+      <div class="metric metric-warn"><label>建议退出仓次</label><span id="exitCount">0</span></div>
+      <div class="metric metric-neutral"><label>平均备货仓数</label><span id="avgStock">0</span></div>
+      <div class="metric metric-cost"><label>当前库存成本</label><span id="currentInventoryCost">0</span></div>
+      <div class="metric metric-target"><label>理论库存成本</label><span id="theoreticalInventoryCost">0</span></div>
+      <div class="metric metric-alert"><label>库存优化空间</label><span id="inventoryGap">0</span></div>
+      <div class="metric metric-muted"><label>其他库存成本（品牌为其他）</label><span id="otherBrandInventoryCost">0</span></div>
+    </section>
+
+    <section class="matrix-shell" aria-label="规划矩阵">
+      <div class="table-toolbar">
+        <div id="resultTitle" class="result-title"></div>
+      <div class="legend">
+        <span><i class="dot stock"></i>备货</span>
+        <span><i class="dot no-stock"></i>不备货</span>
+        <span><i class="dot adjusted"></i>与品类经理规划不一致</span>
+      </div>
+      </div>
+      <div class="table-wrap">
+        <table id="planTable"></table>
+      </div>
+    </section>
+  </main>
+
+  <aside id="detailPanel" class="detail-panel" aria-hidden="true">
+    <div class="detail-head">
+      <div>
+        <p id="detailCenter" class="eyebrow"></p>
+        <h2 id="detailTitle"></h2>
+      </div>
+      <button id="closePanel" class="icon-btn" type="button" title="关闭">×</button>
+    </div>
+    <div id="detailBody" class="detail-body"></div>
+  </aside>
+  <div id="panelBackdrop" class="panel-backdrop"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
