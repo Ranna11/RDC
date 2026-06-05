@@ -354,6 +354,50 @@ function renderTable(rows) {
   });
 }
 
+function renderMobileResults(rows) {
+  const container = document.getElementById("mobileResults");
+  if (!rows.length) {
+    container.innerHTML = `<div class="empty-state">没有匹配结果</div>`;
+    return;
+  }
+
+  container.innerHTML = rows.map((row, rowIndex) => {
+    const centerCells = centerNames.map((center) => {
+      const status = row[center] || "";
+      const detail = detailMap.get(`${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}||${center}`) || {};
+      const displayValue = formatMetricValue(detail, status);
+      const adjustedClass = detail["是否调整"] === "是" ? "status-adjusted" : "";
+      return `
+        <button class="mobile-center-cell ${statusClass(status)} ${adjustedClass}" type="button" data-row="${rowIndex}" data-center="${escapeHtml(center)}">
+          <span class="mobile-center-name">${escapeHtml(center)}</span>
+          <span class="mobile-center-value">${escapeHtml(displayValue)}</span>
+        </button>
+      `;
+    }).join("");
+    return `
+      <article class="mobile-card">
+        <div class="mobile-card-head">
+          <div class="mobile-card-title">${escapeHtml(row["预算品类"])} · ${escapeHtml(row["预算品牌"])}</div>
+          <div class="mobile-card-sub">${escapeHtml(row["大类"])}</div>
+          <div class="mobile-card-metrics">
+            <span class="mobile-pill">原备货 ${formatNumber(row["原备货仓数"])}</span>
+            <span class="mobile-pill">建议备货 ${formatNumber(row["建议备货仓数"])}</span>
+            <span class="mobile-pill">建议退出 ${formatNumber(row["建议退出仓数"])}</span>
+          </div>
+        </div>
+        <div class="mobile-center-grid">${centerCells}</div>
+      </article>
+    `;
+  }).join("");
+
+  container.querySelectorAll(".mobile-center-cell").forEach((cell) => {
+    cell.addEventListener("click", () => {
+      const row = rows[Number(cell.dataset.row)];
+      openDetail(row, cell.dataset.center);
+    });
+  });
+}
+
 function openDetail(row, center) {
   const detail = detailMap.get(`${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}||${center}`) || {};
   const status = row[center] || detail["最终规划"] || "";
@@ -432,6 +476,7 @@ function render() {
   renderSummary(rows);
   renderChips();
   renderTable(rows);
+  renderMobileResults(rows);
   return rows;
 }
 
