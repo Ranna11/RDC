@@ -9,7 +9,7 @@
 <body>
   <header class="app-header">
     <div>
-      <p class="eyebrow">Center Warehouse Planning</p>
+      <p class="eyebrow">RDC Brand Planning</p>
       <h1>中心仓品类品牌规划</h1>
     </div>
     <div class="header-actions">
@@ -21,13 +21,12 @@
   <main>
     <section class="planning-note" aria-label="规划说明">
       <div class="note-head">
-        <div>
-          <p class="eyebrow">Planning Notes</p>
-          <h2>中心仓品类品牌规划说明</h2>
+        <div class="note-popover">
+          <span class="note-trigger">规划说明 <span aria-hidden="true">ⓘ</span></span>
+          <div id="planningRules" class="rule-grid"></div>
         </div>
         <span id="sourceName" class="source-pill"></span>
       </div>
-      <div id="planningRules" class="rule-grid"></div>
     </section>
 
     <section class="filter-band" aria-label="筛选">
@@ -39,6 +38,13 @@
         <div id="majorFilter" class="multi-filter"></div>
         <div id="categoryFilter" class="multi-filter"></div>
         <div id="brandFilter" class="multi-filter"></div>
+        <label class="metric-select">
+          <span>视角</span>
+          <select id="viewSelect">
+            <option value="manager">品类经理输出</option>
+            <option value="system">数据逻辑输出</option>
+          </select>
+        </label>
         <label class="metric-select">
           <span>指标查看</span>
           <select id="metricSelect"></select>
@@ -54,13 +60,12 @@
 
     <section class="summary-strip" aria-label="摘要">
       <div class="metric metric-neutral"><label>品类品牌</label><span id="rowCount">0</span></div>
-      <div class="metric metric-good"><label>系统建议备货仓次</label><span id="stockCount">0</span></div>
-      <div class="metric metric-warn"><label>系统建议退出仓次</label><span id="exitCount">0</span></div>
-      <div class="metric metric-neutral"><label>平均备货仓数</label><span id="avgStock">0</span></div>
       <div class="metric metric-cost"><label>当前库存成本</label><span id="currentInventoryCost">0</span></div>
       <div class="metric metric-target"><label>理论库存成本</label><span id="theoreticalInventoryCost">0</span></div>
       <div class="metric metric-alert"><label>库存优化空间</label><span id="inventoryGap">0</span></div>
       <div class="metric metric-muted"><label>其他库存成本（品牌为其他）</label><span id="otherBrandInventoryCost">0</span></div>
+      <div class="metric metric-sales"><label>近90天销售成本</label><span id="salesCost90">0</span></div>
+      <div class="metric metric-order"><label>近90天订货成本</label><span id="orderCost90">0</span></div>
     </section>
 
     <section class="matrix-shell" aria-label="规划矩阵">
