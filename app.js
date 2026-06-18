@@ -359,6 +359,25 @@ function renderChips() {
   document.getElementById("chips").innerHTML = chips.join("");
 }
 
+function renderMobileCenterCounts(rows) {
+  const container = document.getElementById("mobileCenterCounts");
+  const counts = centerStockCounts(rows);
+  container.innerHTML = `
+    <div class="mobile-center-count-title">
+      <strong>中心仓备货品类品牌数</strong>
+      <span>${escapeHtml(viewLabels[state.view] || "最终备货方案")}</span>
+    </div>
+    <div class="mobile-center-count-grid">
+      ${counts.map((item) => `
+        <div class="mobile-count-card">
+          <span>组${escapeHtml(item.group)} · ${escapeHtml(item.center)}</span>
+          <strong>${formatNumber(item.count)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderPlanningNotes() {
   document.getElementById("sourceName").textContent = PLAN_DATA.source || "";
   document.getElementById("planningRules").innerHTML = (PLAN_DATA.rules || []).map((rule) => `
@@ -615,6 +634,7 @@ function render() {
   renderSummary(rows);
   renderChips();
   renderTable(rows);
+  renderMobileCenterCounts(rows);
   renderMobileResults(rows);
   return rows;
 }

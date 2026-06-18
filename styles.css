@@ -426,6 +426,56 @@ main { padding: 18px 24px 28px; }
   background: #f7faf9;
 }
 
+.mobile-center-counts {
+  display: none;
+  padding: 10px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-center-count-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.mobile-center-count-title strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.mobile-center-count-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.mobile-count-card {
+  border: 1px solid #dce5e9;
+  border-radius: 7px;
+  padding: 8px 9px;
+  background: #f8fbfb;
+}
+
+.mobile-count-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.mobile-count-card strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--teal-dark);
+  font-size: 18px;
+  line-height: 1;
+}
+
 table {
   width: max-content;
   min-width: 100%;
@@ -851,6 +901,7 @@ th.group-start {
   }
   .metric span { font-size: 22px; }
   .table-wrap { display: none; }
+  .mobile-center-counts { display: block; }
   .mobile-results { display: block; }
   .legend { flex-wrap: wrap; justify-content: flex-end; }
   .table-toolbar {
