@@ -354,6 +354,8 @@ main { padding: 18px 24px 28px; }
 .metric-muted::before { background: #7a8790; }
 .metric-sales::before { background: #2d7da3; }
 .metric-order::before { background: #7a5ba7; }
+.metric-turnover::before { background: #b05f2c; }
+.metric-outbound::before { background: #4f6f52; }
 
 .metric-good span { color: #17613f; }
 .metric-warn span { color: #80510e; }
@@ -362,6 +364,8 @@ main { padding: 18px 24px 28px; }
 .metric-alert span { color: #963323; }
 .metric-sales span { color: #235f7d; }
 .metric-order span { color: #604483; }
+.metric-turnover span { color: #8a451f; }
+.metric-outbound span { color: #405d42; }
 
 .matrix-shell {
   background: #ffffff;
@@ -454,7 +458,26 @@ th {
   font-size: 12px;
 }
 
-.column-head th { top: 33px; }
+.center-count-head th {
+  top: 33px;
+  background: #f4f8f7;
+  color: #315f5a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.center-count-head .count-label {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.center-stock-count {
+  color: var(--teal-dark);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.column-head th { top: 66px; }
 
 .sticky-col {
   position: sticky;
@@ -474,6 +497,11 @@ th.sticky-col {
   z-index: 13;
 }
 
+.center-count-head th.sticky-col {
+  background: #f4f8f7;
+  z-index: 13;
+}
+
 .column-head th.sticky-col {
   z-index: 14;
 }
@@ -481,6 +509,32 @@ th.sticky-col {
 .sticky-1 { left: 0; min-width: 72px; }
 .sticky-2 { left: 72px; min-width: 108px; }
 .sticky-3 { left: 180px; min-width: 180px; }
+
+.brand-cell {
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.brand-name {
+  display: inline;
+}
+
+.brand-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  border-radius: 50%;
+  border: 1px solid #b7791f;
+  color: #9a4f12;
+  background: #fff7ed;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: help;
+  vertical-align: text-bottom;
+}
 
 .count-col {
   width: 76px;
@@ -505,6 +559,8 @@ th.group-start {
   font-weight: 700;
   cursor: pointer;
   transition: outline-color .12s ease, filter .12s ease;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .status-cell:hover {
@@ -513,9 +569,22 @@ th.group-start {
   filter: saturate(1.08);
 }
 
+.cell-main,
+.cell-sub {
+  display: block;
+}
+
+.cell-sub {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: .72;
+}
+
 .status-stock { background: var(--green-bg); color: var(--green-text); }
 .status-partial { background: var(--amber-bg); color: var(--amber-text); }
 .status-none { background: var(--red-bg); color: var(--red-text); }
+.status-pending { background: #eef2f5; color: #52616a; }
 
 .status-adjusted {
   box-shadow: inset 0 0 0 2px #c75f19;

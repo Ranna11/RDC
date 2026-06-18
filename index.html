@@ -43,6 +43,7 @@
           <select id="viewSelect">
             <option value="manager">品类经理输出</option>
             <option value="system">数据逻辑输出</option>
+            <option value="final">最终备货方案</option>
           </select>
         </label>
         <label class="metric-select">
@@ -59,13 +60,14 @@
     </section>
 
     <section class="summary-strip" aria-label="摘要">
-      <div class="metric metric-neutral"><label>品类品牌</label><span id="rowCount">0</span></div>
       <div class="metric metric-cost"><label>当前库存成本</label><span id="currentInventoryCost">0</span></div>
       <div class="metric metric-target"><label>理论库存成本</label><span id="theoreticalInventoryCost">0</span></div>
       <div class="metric metric-alert"><label>库存优化空间</label><span id="inventoryGap">0</span></div>
       <div class="metric metric-muted"><label>其他库存成本（品牌为其他）</label><span id="otherBrandInventoryCost">0</span></div>
       <div class="metric metric-sales"><label>近90天销售成本</label><span id="salesCost90">0</span></div>
       <div class="metric metric-order"><label>近90天订货成本</label><span id="orderCost90">0</span></div>
+      <div class="metric metric-turnover"><label>销售周转天数</label><span id="salesTurnoverDays">0</span></div>
+      <div class="metric metric-outbound"><label>出库周转天数</label><span id="outboundTurnoverDays">0</span></div>
     </section>
 
     <section class="matrix-shell" aria-label="规划矩阵">
