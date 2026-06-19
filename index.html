@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>中心仓品类品牌规划</title>
-  <link rel="stylesheet" href="styles.css?v=20260618142040">
+  <link rel="stylesheet" href="styles.css?v=20260618222403">
 </head>
 <body>
   <header class="app-header">
@@ -19,16 +19,6 @@
   </header>
 
   <main>
-    <section class="planning-note" aria-label="规划说明">
-      <div class="note-head">
-        <div class="note-popover">
-          <span class="note-trigger">规划说明 <span aria-hidden="true">ⓘ</span></span>
-          <div id="planningRules" class="rule-grid"></div>
-        </div>
-        <span id="sourceName" class="source-pill"></span>
-      </div>
-    </section>
-
     <section class="filter-band" aria-label="筛选">
       <div class="filter-grid">
         <label class="search-box">
@@ -38,6 +28,7 @@
         <div id="majorFilter" class="multi-filter"></div>
         <div id="categoryFilter" class="multi-filter"></div>
         <div id="brandFilter" class="multi-filter"></div>
+        <div id="centerFilter" class="multi-filter"></div>
         <label class="metric-select">
           <span>视角</span>
           <select id="viewSelect">
@@ -50,12 +41,8 @@
           <span>指标查看</span>
           <select id="metricSelect"></select>
         </label>
-        <div class="segmented" aria-label="状态筛选">
-          <button class="segment is-active" type="button" data-status="全部">全部</button>
-          <button class="segment" type="button" data-status="有备货">有备货</button>
-          <button class="segment" type="button" data-status="有退出">有退出</button>
-        </div>
       </div>
+      <div id="stockCountFilter" class="stock-count-filter"></div>
       <div id="chips" class="chips"></div>
     </section>
 
@@ -99,6 +86,6 @@
   </aside>
   <div id="panelBackdrop" class="panel-backdrop"></div>
 
-  <script src="app.js?v=20260618142040"></script>
+  <script src="app.js?v=20260618222403"></script>
 </body>
 </html>
