@@ -273,38 +273,39 @@ function detailsForRows(rows) {
   });
 }
 
-function filteredInventoryRows(rows) {
-  if (Array.isArray(rows)) return detailsForRows(rows);
+function basicInventoryRowMatches(row) {
   const keyword = state.keyword.trim().toLowerCase();
+  if (state.selectedMajor.size && !state.selectedMajor.has(row["大类"])) return false;
+  if (state.selectedCategory.size && !state.selectedCategory.has(row["预算品类"])) return false;
+  if (state.selectedBrand.size && !state.selectedBrand.has(row["预算品牌"])) return false;
+  if (state.selectedCenter.size && !state.selectedCenter.has(row["中心仓"])) return false;
+  if (keyword) {
+    const haystack = `${row["大类"]} ${row["预算品类"]} ${row["预算品牌"]}`.toLowerCase();
+    if (!haystack.includes(keyword)) return false;
+  }
+  return true;
+}
+
+function filteredInventoryRows(rows) {
+  const allowedKeys = state.selectedStockCountRange.size && Array.isArray(rows)
+    ? new Set(rows.map((row) => `${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}`))
+    : null;
   return (PLAN_DATA.inventoryRows || []).filter((row) => {
-    if (state.selectedMajor.size && !state.selectedMajor.has(row["大类"])) return false;
-    if (state.selectedCategory.size && !state.selectedCategory.has(row["预算品类"])) return false;
-    if (state.selectedBrand.size && !state.selectedBrand.has(row["预算品牌"])) return false;
-    if (state.selectedCenter.size && !state.selectedCenter.has(row["中心仓"])) return false;
-    if (state.selectedStockCountRange.size) {
-      const count = row[stockCountKey()];
-      const matched = [...state.selectedStockCountRange].some((range) => stockCountInRange(count, range));
-      if (!matched) return false;
-    }
-    if (keyword) {
-      const haystack = `${row["大类"]} ${row["预算品类"]} ${row["预算品牌"]}`.toLowerCase();
-      if (!haystack.includes(keyword)) return false;
-    }
+    if (!basicInventoryRowMatches(row)) return false;
+    if (allowedKeys && !allowedKeys.has(`${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}`)) return false;
     return true;
   });
 }
 
 function otherBrandInventoryCost(rows) {
   if (state.selectedBrand.size && !state.selectedBrand.has("其他")) return 0;
-  const allowedKeys = Array.isArray(rows)
+  const allowedKeys = state.selectedStockCountRange.size && Array.isArray(rows)
     ? new Set(rows.map((row) => `${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}`))
     : null;
   return (PLAN_DATA.otherBrandInventoryRows || [])
     .filter((row) => {
+      if (!basicInventoryRowMatches(row)) return false;
       if (allowedKeys && !allowedKeys.has(`${row["大类"]}||${row["预算品类"]}||${row["预算品牌"]}`)) return false;
-      if (state.selectedMajor.size && !state.selectedMajor.has(row["大类"])) return false;
-      if (state.selectedCategory.size && !state.selectedCategory.has(row["预算品类"])) return false;
-      if (state.selectedCenter.size && !state.selectedCenter.has(row["中心仓"])) return false;
       return row["预算品牌"] === "其他";
     })
     .reduce((sum, row) => sum + toNumber(row["库存成本"]), 0);
